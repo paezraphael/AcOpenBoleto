@@ -1575,6 +1575,7 @@ abstract class BoletoAbstract
             $fator++;
         }
         $result = array(
+            'soma' => $soma,
             'digito' => ($soma * 10) % 11,
             // Remainder.
             'resto'  => $soma % 11,
