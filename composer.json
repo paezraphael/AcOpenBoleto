@@ -1,13 +1,13 @@
 {
-    "name": "paezraphael/AcOpenBoleto",
+    "name": "paezraphael/AcOpenBoleto_v2",
     "type": "library",
     "description": "Biblioteca para geração de boletos bancários.",
     "keywords": ["boleto", "boleto bancario"],
-    "homepage": "https://github.com/paezraphael/AcOpenBoleto",
+    "homepage": "https://github.com/paezraphael/AcOpenBoleto_v2",
     "license": "MIT",
     "authors": [
         {
-            "name": "Raphael paezraphael/AcOpenBoleto",
+            "name": "Raphael paezraphael/AcOpenBoleto_v2",
             "email": "paezraphael@facebook.com"
         }
     ],
