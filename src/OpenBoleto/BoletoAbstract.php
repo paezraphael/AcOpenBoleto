@@ -1291,7 +1291,11 @@ abstract class BoletoAbstract
      */
     public function getLinhaDigitavel()
     {
-        $chave = $this->getCampoLivre();
+        if($this->getCodigoBanco() == "237"){
+            $chave = $this->getCampoLivreCodigo();
+        }else {
+            $chave = $this->getCampoLivre();
+        }
 
         // Break down febraban positions 20 to 44 into 3 blocks of 5, 10 and 10
         // characters each.
@@ -1326,8 +1330,10 @@ abstract class BoletoAbstract
         $part3 = $blocks['35-44'] . $check_digit;
         $part3 = substr_replace($part3, '.', 5, 0);
 
+
         // Check digit for the human readable number.
         $cd = $this->getDigitoVerificador();
+
 
         // Put part4 together.
         $part4  = $this->getFatorVencimento() . $this->getValorZeroFill();
@@ -1440,16 +1446,14 @@ abstract class BoletoAbstract
     protected function getDigitoVerificador()
     {
         $num = self::zeroFill($this->getCodigoBanco(), 4) . $this->getMoeda() . $this->getFatorVencimento() . $this->getValorZeroFill() . $this->getCampoLivre();
-
+        if($this->getCodigoBanco() == "237") {
+            $num = $this->codigoBanco.$this->moeda.$this->getFatorVencimento().$this->valor.$this->agencia. $this->carteira .substr($this->getNossoNumero(false),2).$this->conta;
+        }
         $modulo = static::modulo11($num);
         if ($modulo['resto'] == 0 || $modulo['resto'] == 1 || $modulo['resto'] == 10) {
             $dv = 1;
         } else {
             $dv = 11 - $modulo['resto'];
-        }
-        if($this->getCodigoBanco() == "237") {
-            $modulo = self::modulo11($num, 7);
-            $dv = $modulo['digito'];
         }
 
         return $dv;

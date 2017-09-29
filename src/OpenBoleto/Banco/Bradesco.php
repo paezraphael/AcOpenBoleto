@@ -95,11 +95,14 @@ class Bradesco extends BoletoAbstract
      * @return string
      */
     public function getCampoLivre(){
-        return static::zeroFill($this->getAgencia(), 4) .
+
+
+        $return = static::zeroFill($this->getAgencia(), 4) .
             static::zeroFill($this->getCarteira(), 2) .
             substr(substr($this->getNossoNumero(false),2),0,-1) .
             static::zeroFill($this->getConta(), 8) .
             '0';
+        return $return;
     }
 
     public function getNumeroFebraban()
@@ -119,7 +122,7 @@ class Bradesco extends BoletoAbstract
     protected function getDigitoVerificadorBradesco()
     {
         $numero = $this->codigoBanco.$this->moeda.$this->getFatorVencimento().$this->valor.$this->agencia. $this->carteira .substr($this->getNossoNumero(false),2).$this->conta;
-         return $this->getDigitoVerificadorNossoNumero($numero);
+        return $this->getDigitoVerificadorNossoNumero($numero);
     }
 
     /**
