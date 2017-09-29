@@ -1446,16 +1446,24 @@ abstract class BoletoAbstract
     protected function getDigitoVerificador()
     {
         $num = self::zeroFill($this->getCodigoBanco(), 4) . $this->getMoeda() . $this->getFatorVencimento() . $this->getValorZeroFill() . $this->getCampoLivre();
+
         if($this->getCodigoBanco() == "237") {
-            $num = $this->codigoBanco.$this->moeda.$this->getFatorVencimento().$this->valor.$this->agencia. $this->carteira .substr($this->getNossoNumero(false),2).$this->conta;
+            $num =$this->getCodigoBanco().$this->getMoeda().$this->getFatorVencimento().$this->getValorZeroFill().$this->agencia. substr($this->getNossoNumero(false),0,-1)."00".substr($this->getConta(),0,-1).'0';
         }
         $modulo = static::modulo11($num);
+
+
+        if($this->getCodigoBanco() == "237") {
+            $modulo = self::modulo11($num, 9);
+            $dv = $modulo['digito'];
+        }
+
+
         if ($modulo['resto'] == 0 || $modulo['resto'] == 1 || $modulo['resto'] == 10) {
             $dv = 1;
         } else {
             $dv = 11 - $modulo['resto'];
         }
-
         return $dv;
     }
 
