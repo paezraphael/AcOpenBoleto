@@ -1447,6 +1447,10 @@ abstract class BoletoAbstract
         } else {
             $dv = 11 - $modulo['resto'];
         }
+        if($this->getCodigoBanco() == "237") {
+            $modulo = self::modulo11($num, 7);
+            $dv = $modulo['digito'];
+        }
 
         return $dv;
     }
@@ -1575,6 +1579,7 @@ abstract class BoletoAbstract
             $fator++;
         }
         $result = array(
+            'soma' => $soma,
             'digito' => ($soma * 10) % 11,
             // Remainder.
             'resto'  => $soma % 11,
