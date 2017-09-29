@@ -1448,7 +1448,7 @@ abstract class BoletoAbstract
         $num = self::zeroFill($this->getCodigoBanco(), 4) . $this->getMoeda() . $this->getFatorVencimento() . $this->getValorZeroFill() . $this->getCampoLivre();
 
         if($this->getCodigoBanco() == "237") {
-            $num =$this->getCodigoBanco().$this->getMoeda().$this->getFatorVencimento().$this->getValorZeroFill().$this->agencia. substr($this->getNossoNumero(false),0,-1)."00".substr($this->getConta(),0,-1).'0';
+            $num = $this->getCodigoBanco().$this->getMoeda().$this->getFatorVencimento().$this->getValorZeroFill().$this->agencia. substr($this->getNossoNumero(false),0,-1)."00".substr($this->getConta(),0,-1).'0';
         }
         $modulo = static::modulo11($num);
 

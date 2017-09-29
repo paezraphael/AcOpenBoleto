@@ -121,7 +121,7 @@ class Bradesco extends BoletoAbstract
 
     protected function getDigitoVerificadorBradesco()
     {
-        $numero = $this->codigoBanco.$this->moeda.$this->getFatorVencimento().$this->valor.$this->agencia. $this->carteira .substr($this->getNossoNumero(false),2).$this->conta;
+        $numero = $this->getCodigoBanco().$this->getMoeda().$this->getFatorVencimento().$this->getValorZeroFill().$this->agencia. substr($this->getNossoNumero(false),0,-1)."00".substr($this->getConta(),0,-1).'0';
         return $this->getDigitoVerificadorNossoNumero($numero);
     }
 
@@ -168,7 +168,7 @@ class Bradesco extends BoletoAbstract
     +     * @return int
     +     */
     static function getDigitoVerificadorNossoNumero($numero) {
-        $modulo = self::modulo11($numero,7);
+        $modulo = self::modulo11($numero,9);
 
         return $modulo['digito'];
     }
